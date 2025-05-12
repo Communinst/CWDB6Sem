@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	//cnfg "github.com/Communinst/CWDB6Sem/backend/config"
-	//customErrors "github.com/Communinst/CWDB6Sem/backend/errors"
+	cnfg "github.com/Communinst/CWDB6Sem/backend/config"
+	customErrors "github.com/Communinst/CWDB6Sem/backend/errors"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -74,4 +74,4 @@ import (
 
 // func CloseDBConn(db *sqlx.DB) error {
 // 	return db.Close()
-}
+//}
