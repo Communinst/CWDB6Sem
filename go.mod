@@ -1,4 +1,4 @@
-module CWDB6Sem
+module github.com/Communinst/CWDB6Sem
 
 go 1.22.5
 
