@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+
+    postgres:
+        image: "postgres:17.5-alpine"
+        environment:
+            - POSTGRES_DB=${POSTGRES_NAME}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASS}
+        volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - "${POSTGRES_PORT}:5432" 
+        networks:
+            - app-network
+        restart: unless-stopped       
+
+    app:
+        build: .
+        ports:
+            - "${GCNTNR_PORT}:${GCNTNR_PORT}"
+        depends_on:
+            - postgres
+        networks:
+            - app-network
+        restart: unless-stopped
+       
+        
+        
+networks:
+  app-network:
+    driver: bridge     

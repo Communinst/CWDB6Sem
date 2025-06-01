@@ -1,0 +1,28 @@
+# Temporary files
+*.tmp
+*.tmp*
+*~
+# Go cache
+.DS_Store
+.idea/
+.vscode/
+.env
+# Go modules cache
+**/go.mod.d/
+**/go.sum.d/
+# Binaries
+bin/
+# Compiled Go programs
+**/main
+# Package manager lockfiles
+go.mod
+go.sum
+go.work
+vendor/
+
+# Build output files
+obj/
+# Temporary build artifacts
+**/output/
+# Dependency cache
+go-build/
