@@ -21,6 +21,13 @@ services:
             - "${GCNTNR_PORT}:${GCNTNR_PORT}"
         depends_on:
             - postgres
+        environment:
+            - DB_PASSWORD=${POSTGRES_PASS}
+            - DB_USER=${POSTGRES_USER}
+            - DB_NAME=${POSTGRES_NAME}
+            - DB_HOST=postgres
+            - DB_PORT=${POSTGRES_PORT}
+            - PORT=${GCNTNR_PORT}
         networks:
             - app-network
         restart: unless-stopped
