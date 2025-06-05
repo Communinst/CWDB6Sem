@@ -5,7 +5,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/ilyakaznacheev/cleanenv"
 	_ "github.com/lib/pq"
 )
 
@@ -29,23 +28,35 @@ type Database struct {
 	SSLMode  string `yaml:"sslmode" env-required:"true"`
 }
 
+func LogConfig(cfg Config) {
+	fmt.Printf("%s %s %s %s %s %s\n %s",
+		cfg.Host,
+		cfg.Port,
+		cfg.Username,
+		cfg.Password,
+		cfg.DBName,
+		cfg.SSLMode,
+		cfg.Address)
+}
 func LoadConfig() (*Config, error) {
-	configPath, exists := os.LookupEnv("CONFIG_PATH")
-	if !exists {
-		return nil, fmt.Errorf("CONFIG_PATH is not set")
-	}
-	if _, err := os.Stat(configPath); os.IsNotExist(err) {
-		return nil, fmt.Errorf("config file doesn't exist: %s", configPath)
+	cfg := &Config{
+		Database: Database{
+			Host:     os.Getenv("POSTGRES_HOST"),
+			Port:     os.Getenv("POSTGRES_PORT"),
+			Username: os.Getenv("POSTGRES_USER"),
+			Password: os.Getenv("POSTGRES_PASSWORD"),
+			DBName:   os.Getenv("POSTGRES_NAME"),
+			SSLMode:  os.Getenv("POSTGRES_SSLMODE"),
+		},
+		HttpServer: HttpServer{
+			Address: fmt.Sprintf("0.0.0.0:%s", os.Getenv("GCNTNR_PORT")), // "8080"
+			Timeout: 4 * time.Second,
+		},
 	}
 
-	var cfg Config
-	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
-		return nil, fmt.Errorf("error occured while reading config: %s", err.Error())
+	// Validate required fields
+	if cfg.Database.Password == "" {
+		return nil, fmt.Errorf("POSTGRES_PASSWORD not set")
 	}
-	password, exists := os.LookupEnv("POSTGRES_PASSWORD")
-	if !exists {
-		return nil, fmt.Errorf("POSTGRES_PASSWORD is not set")
-	}
-	cfg.Database.Password = password
-	return &cfg, nil
+	return cfg, nil
 }

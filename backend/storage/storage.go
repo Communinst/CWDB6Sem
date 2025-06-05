@@ -13,12 +13,16 @@ import (
 )
 
 func InitDBConn(config *cnfg.Database) *sqlx.DB {
-	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		config.Host,
 		config.Port,
 		config.Username,
 		config.Password,
-		config.DBName)
+		config.DBName,
+		config.SSLMode)
+
+	//slog.Info("DB Connection String:", connStr)  // Debug log
+
 	db, err := sqlx.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal("failed to open database connection: ", err)

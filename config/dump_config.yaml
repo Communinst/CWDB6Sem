@@ -1,0 +1,6 @@
+container: "CWBD"
+username: "postgres"
+db_name: "postgres"
+prefix: "dump"
+dir: "X:\\Coding\\CWDB6Sem\\dumpDir"
+restorePrefix: "restore"

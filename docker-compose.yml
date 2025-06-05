@@ -18,19 +18,20 @@ services:
     app:
         build: .
         ports:
-            - "${GCNTNR_PORT}:${GCNTNR_PORT}"
-        depends_on:
-            - postgres
+          - "${GCNTNR_PORT}:${GCNTNR_PORT}"
         environment:
-            - DB_PASSWORD=${POSTGRES_PASS}
-            - DB_USER=${POSTGRES_USER}
-            - DB_NAME=${POSTGRES_NAME}
-            - DB_HOST=postgres
-            - DB_PORT=${POSTGRES_PORT}
-            - PORT=${GCNTNR_PORT}
+          - POSTGRES_HOST=${POSTGRES_HOST}
+          - POSTGRES_PORT=${POSTGRES_PORT}
+          - POSTGRES_USER=${POSTGRES_USER}
+          - POSTGRES_PASSWORD=${POSTGRES_PASS}
+          - POSTGRES_NAME=${POSTGRES_NAME}
+          - POSTGRES_SSLMODE=disable 
+          - GCNTNR_PORT=${GCNTNR_PORT}
+        depends_on:
+          - postgres
         networks:
-            - app-network
-        restart: unless-stopped
+          - app-network
+        restart: unless-stopped    
        
         
         
