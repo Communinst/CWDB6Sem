@@ -10,7 +10,7 @@ services:
         volumes:
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
         ports:
-            - "${POSTGRES_PORT}:5432" 
+            - "${POSTGRES_PORT}:${POSTGRES_PORT_INNER}" 
         networks:
             - app-network
         restart: unless-stopped       
@@ -21,12 +21,14 @@ services:
           - "${GCNTNR_PORT}:${GCNTNR_PORT}"
         environment:
           - POSTGRES_HOST=${POSTGRES_HOST}
-          - POSTGRES_PORT=${POSTGRES_PORT}
+          - POSTGRES_PORT=${POSTGRES_PORT_INNER}
           - POSTGRES_USER=${POSTGRES_USER}
           - POSTGRES_PASSWORD=${POSTGRES_PASS}
           - POSTGRES_NAME=${POSTGRES_NAME}
           - POSTGRES_SSLMODE=disable 
           - GCNTNR_PORT=${GCNTNR_PORT}
+          - DEFAULT_ADMIN_ROLE_ID=${DEFAULT_ADMIN_ROLE_ID}
+          - DEFAULT_USER_ROLE_ID=${DEFAULT_USER_ROLE_ID}
         depends_on:
           - postgres
         networks:

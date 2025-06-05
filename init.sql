@@ -24,6 +24,8 @@ CREATE TABLE dumps (
 
 
 
+
+
 CREATE OR REPLACE FUNCTION insert_dump(p_filePath VARCHAR)
     RETURNS VOID AS
 $$
@@ -46,3 +48,13 @@ BEGIN
     RETURN QUERY SELECT dumps.filePath FROM dumps;
 END;
 $$ LANGUAGE plpgsql;
+
+
+INSERT INTO roles (name, description, significance_order)
+VALUES
+    ('Admin', ' ', 50),
+    ('User', ' ', 15),
+    ('Bot', ' ', -1),
+    ('Stuff', ' ', 20),
+    ('Manager', ' ', 25),
+    ('Chief', ' ', 30);
