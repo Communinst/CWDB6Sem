@@ -38,10 +38,6 @@ func InitEnv() error {
 
 func main() {
 	//gin.SetMode(gin.ReleaseMode)
-	//if err := InitEnv(); err != nil {
-	//	slog.Error(err.Error())
-	//	os.Exit(1)
-	//}
 
 	config := setupConfig()
 	cnfg.LogConfig(*config)
@@ -52,8 +48,6 @@ func main() {
 	service := service.New(repository)
 	handler := handler.New(service)
 
-	//fmt.Printf("%s", config.Address)
-
 	server := server.New(
 		config.Address,
 		handler.InitRoutes(),
@@ -63,7 +57,6 @@ func main() {
 
 	server.Run()
 
-	strg.RunDBTableScript(db, "X:\\Coding\\Golang\\backend\\PostgreSQLScripts\\drop.sql")
 	if err := strg.CloseDBConn(db); err != nil {
 		log.Fatal("Failed to cease DB connection!")
 	} else {
