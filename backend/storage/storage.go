@@ -9,8 +9,19 @@ import (
 
 	cnfg "github.com/Communinst/CWDB6Sem/backend/config"
 	customErrors "github.com/Communinst/CWDB6Sem/backend/errors"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/jmoiron/sqlx"
 )
+
+type Storage struct {
+	postgres *sqlx.DB
+	//redis    *redis.Client
+	s3 *s3.Client
+}
+
+func New(dbConfig *cnfg.Database, cloudConfig *cnfg.CloudDatabase) (*Storage, error) {
+
+}
 
 func InitDBConn(config *cnfg.Database) *sqlx.DB {
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",

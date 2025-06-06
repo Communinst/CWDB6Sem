@@ -12,16 +12,7 @@ const (
 	usersTable = "users"
 )
 
-// type CartRepo interface {
-// }
 
-// type GenreRepo interface {
-// }
-
-// type ReviewRepo interface {
-// }
-// type RoleRepo interface {
-// }
 type UserRepo interface {
 	PostUser(ctx context.Context, user *entities.User) (int, error)
 	GetUser(ctx context.Context, userId int) (*entities.User, error)

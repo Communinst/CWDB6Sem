@@ -9,9 +9,10 @@ import (
 )
 
 type Config struct {
-	Env        string `yaml:"env" env-default:"local"`
-	HttpServer `yaml:"http-server" env-required:"true"`
-	Database   `yaml:"database"`
+	HttpServer    `yaml:"http-server" env-required:"true"`
+	Database      `yaml:"database"`
+	CacheDatabase Database
+	CloudDatabase Database
 }
 
 type HttpServer struct {
@@ -23,7 +24,7 @@ type Database struct {
 	Host     string `yaml:"host" env-required:"true"`
 	Port     string `yaml:"port" env-required:"true"`
 	Username string `yaml:"username" env-required:"true"`
-	Password string //configured through .env
+	Password string
 	DBName   string `yaml:"dbname" env-required:"true"`
 	SSLMode  string `yaml:"sslmode" env-required:"true"`
 }
